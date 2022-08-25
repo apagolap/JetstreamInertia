@@ -54,8 +54,13 @@ const logout = () => {
                                     Dashboard
                                 </JetNavLink>
                                 <JetNavLink :href="route('user.index')" :active="route().current('user.*')">
-                                    User {{ userLogin }}
+                                    User
                                 </JetNavLink>
+                                <div class="flex items-center">
+                                    <h2 class="font-medium text-blue-700"> Welcome Bach, <strong>{{
+                                            userLogin
+                                        }}</strong></h2>
+                                </div>
                             </div>
                         </div>
 
