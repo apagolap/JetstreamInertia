@@ -11,6 +11,8 @@ const props = defineProps({
     modalOpen: false,
     userSelect: Object,
     search: String,
+    time: String,
+    userLogin: Array
 });
 
 const form = useForm({
@@ -27,10 +29,10 @@ const deleteUser = () => {
 </script>
 
 <template>
-    <AppLayout title="Dashboard">
+    <AppLayout title="Dashboard" :userLogin="userLogin.name">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                List Users
+                List Users of {{ userLogin.name }}
             </h2>
         </template>
 
@@ -113,6 +115,12 @@ const deleteUser = () => {
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-12">
+                <p>The current time es {{ time }}.</p>
+                <Link :href="route('user.index')" class="text-blue-500" preserve-scroll>Refresh</Link>
             </div>
         </div>
         <jet-confirmation-modal :show="modalOpen">
