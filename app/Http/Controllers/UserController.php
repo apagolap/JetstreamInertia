@@ -18,17 +18,16 @@ class UserController extends Controller
     public function index()
     {
         $users = User::query()->orderBy('id');
-        $search = "";
         if (request()->has("search")) {
             $search = request("search");
-            $users = $users->where('name', 'like', '%' . $search . '%')
+            $users = $users->where('name', 'like', "%$search%")
                 ->orWhere('email', 'like', '%' . $search . '%');
         }
-        $users = $users->paginate(10);
+        $users = $users->paginate(5)->withQueryString();
 
         return Inertia::render('User/Index', [
             'users' => $users,
-            'search' => $search,
+            'filters' => request()->only(['search']),
             'time' => now()->toTimeString(),
         ]);
     }

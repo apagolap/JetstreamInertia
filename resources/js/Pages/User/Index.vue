@@ -1,6 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import {Link, useForm} from '@inertiajs/inertia-vue3';
+import {ref, watch} from "vue";
 import {Inertia} from '@inertiajs/inertia';
 import JetConfirmationModal from '@/Components/ConfirmationModal.vue';
 import JetInput from '@/Components/Input.vue';
@@ -11,21 +12,30 @@ const props = defineProps({
     users: Object,
     modalOpen: false,
     userSelect: Object,
-    search: String,
+    filters: Object,
     time: String,
 });
 
-const form = useForm({
+/*const form = useForm({
     search: props.search
-});
+});*/
 
-const submit = () => {
+/*const submit = () => {
     Inertia.get(route('user.index', {'search': form.search}));
-};
+};*/
 
 const deleteUser = () => {
     Inertia.delete(route('user.destroy', {'user': props.userSelect}));
 };
+
+/*# Other form seach data*/
+let search = ref(props.filters.search);
+
+watch(search, value => {
+    Inertia.get('/user', {search: value}, {
+        preserveState: true
+    })
+});
 </script>
 
 <template>
@@ -54,21 +64,14 @@ const deleteUser = () => {
                     </div>
 
                     <div class="mb-4">
-                        <form @submit.prevent="submit" class="flex space-x-8">
-                            <JetInput
-                                id="name"
-                                v-model="form.search"
-                                type="text"
-                                class="mt-1 block w-full"
-                                autofocus
-                                placeholder="Buscar por Nombre o Email ..."
-                                autocomplete="search"
-                            />
-                            <JetButton type="submit" :class="{ 'opacity-25': form.processing }"
-                                       :disabled="form.processing">
-                                Buscar
-                            </JetButton>
-                        </form>
+                        <JetInput
+                            v-model="search"
+                            type="text"
+                            class="mt-1 block w-1/2"
+                            autofocus
+                            placeholder="Buscar por Nombre o Email ..."
+                            autocomplete="search"
+                        />
                     </div>
                     <div class="w-full">
                         <div class="bg-white shadow-md rounded my-6">
