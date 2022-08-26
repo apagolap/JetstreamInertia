@@ -1,10 +1,11 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import {Link, useForm, Head} from '@inertiajs/inertia-vue3';
+import {Link, useForm} from '@inertiajs/inertia-vue3';
 import {Inertia} from '@inertiajs/inertia';
 import JetConfirmationModal from '@/Components/ConfirmationModal.vue';
 import JetInput from '@/Components/Input.vue';
 import JetButton from '@/Components/Button.vue';
+import Pagination from '@/Components/Pagination.vue';
 
 const props = defineProps({
     users: Object,
@@ -136,9 +137,7 @@ const deleteUser = () => {
                                 </tbody>
                             </table>
                         </div>
-                        <div class="mt-6">
-                            <Link v-for="link in users.links" :href="link.url" v-html="link.label"/>
-                        </div>
+                        <pagination class="mt-6" :links="users.links"/>
                     </div>
                 </div>
             </div>

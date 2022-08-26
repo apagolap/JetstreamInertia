@@ -24,7 +24,7 @@ class UserController extends Controller
             $users = $users->where('name', 'like', '%' . $search . '%')
                 ->orWhere('email', 'like', '%' . $search . '%');
         }
-        $users = $users->paginate(5);
+        $users = $users->paginate(10);
 
         return Inertia::render('User/Index', [
             'users' => $users,

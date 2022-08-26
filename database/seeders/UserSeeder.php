@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
     {
         $password = Hash::make('12345678');
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             User::insert(
                 [
                     'name' => Str::random(10),
