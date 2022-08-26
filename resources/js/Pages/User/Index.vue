@@ -7,6 +7,7 @@ import JetConfirmationModal from '@/Components/ConfirmationModal.vue';
 import JetInput from '@/Components/Input.vue';
 import JetButton from '@/Components/Button.vue';
 import Pagination from '@/Components/Pagination.vue';
+import {debounce, throttle} from "lodash"; // Para búsques con tiempo
 
 const props = defineProps({
     users: Object,
@@ -31,12 +32,20 @@ const deleteUser = () => {
 /*# Other form seach data*/
 let search = ref(props.filters.search);
 
-watch(search, value => {
+/*watch(search, throttle(function (value) {
     Inertia.get('/user', {search: value}, {
         preserveState: true,
         replace: true
     })
-});
+}, 300));*/
+
+watch(search, debounce(function (value) {
+    console.log('Send after finish write: ' )
+    Inertia.get('/user', {search: value}, {
+        preserveState: true,
+        replace: true
+    })
+}, 300));
 </script>
 
 <template>
