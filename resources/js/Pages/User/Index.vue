@@ -7,7 +7,7 @@ import JetInput from '@/Components/Input.vue';
 import JetButton from '@/Components/Button.vue';
 
 const props = defineProps({
-    users: Array,
+    users: Object,
     modalOpen: false,
     userSelect: Object,
     search: String,
@@ -81,7 +81,7 @@ const deleteUser = () => {
                                 </tr>
                                 </thead>
                                 <tbody class="text-gray-600 text-sm font-light">
-                                <tr v-for="user in users" :key="user.id"
+                                <tr v-for="user in users.data" :key="user.id"
                                     class="border-b border-gray-200 hover:bg-gray-100">
                                     <td class="py-3 px-6 text-left">
                                         {{ user.id }}
@@ -135,6 +135,9 @@ const deleteUser = () => {
                                 </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="mt-6">
+                            <Link v-for="link in users.links" :href="link.url" v-html="link.label"/>
                         </div>
                     </div>
                 </div>
