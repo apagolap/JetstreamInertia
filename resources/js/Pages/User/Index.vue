@@ -1,6 +1,6 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import {Link, useForm} from '@inertiajs/inertia-vue3';
+import {Link, useForm, Head} from '@inertiajs/inertia-vue3';
 import {Inertia} from '@inertiajs/inertia';
 import JetConfirmationModal from '@/Components/ConfirmationModal.vue';
 import JetInput from '@/Components/Input.vue';
@@ -12,7 +12,6 @@ const props = defineProps({
     userSelect: Object,
     search: String,
     time: String,
-    userLogin: Array
 });
 
 const form = useForm({
@@ -29,10 +28,10 @@ const deleteUser = () => {
 </script>
 
 <template>
-    <AppLayout title="Dashboard" :userLogin="userLogin.name">
+    <AppLayout title="Dashboard">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                List Users of {{ userLogin.name }}
+                List Users
             </h2>
         </template>
 

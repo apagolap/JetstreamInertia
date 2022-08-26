@@ -57,9 +57,9 @@ const logout = () => {
                                     User
                                 </JetNavLink>
                                 <div class="flex items-center">
-                                    <h2 class="font-medium text-blue-700"> Welcome Bach, <strong>{{
-                                            userLogin
-                                        }}</strong></h2>
+                                    <h2 class="font-medium text-blue-700"> Welcome Back, <strong>{{
+                                            $page.props.auth.user.userLogin.name
+                                        }}!</strong></h2>
                                 </div>
                             </div>
                         </div>

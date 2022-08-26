@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserPost;
 use App\Http\Requests\UpdateUserPut;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -28,13 +26,10 @@ class UserController extends Controller
         }
         $users = $users->get();
 
-        $userLogin = Auth::user();
-
         return Inertia::render('User/Index', [
             'users' => $users,
             'search' => $search,
             'time' => now()->toTimeString(),
-            'userLogin' => $userLogin
         ]);
     }
 
