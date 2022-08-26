@@ -33,7 +33,8 @@ let search = ref(props.filters.search);
 
 watch(search, value => {
     Inertia.get('/user', {search: value}, {
-        preserveState: true
+        preserveState: true,
+        replace: true
     })
 });
 </script>

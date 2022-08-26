@@ -1,12 +1,14 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import {useForm} from "@inertiajs/inertia-vue3";
+import {reactive} from "vue";
 import JetButton from '@/Components/Button.vue';
 import JetInput from '@/Components/Input.vue';
 import JetInputError from '@/Components/InputError.vue';
 import JetLabel from '@/Components/Label.vue';
+import {Inertia} from "@inertiajs/inertia";
 
-const form = useForm({
+/*const form = useForm({
     name: '',
     email: '',
     password: ''
@@ -16,7 +18,22 @@ const submit = () => {
     form.post(route('user.store'), {
         onFinish: () => form.reset('name', 'email', 'password'),
     });
-};
+};*/
+
+//Otra forma con reative, en los formularios  va  el nombre del v-model con form ejemplo: v-model="form.name"
+defineProps({
+    errors: Object
+});
+let form = reactive({
+    name: '',
+    email: '',
+    password: ''
+});
+
+let submit = () => {
+    Inertia.post(route('user.store'), form)
+}
+
 </script>
 
 <template>
@@ -42,7 +59,7 @@ const submit = () => {
                                 autofocus
                                 autocomplete="name"
                             />
-                            <JetInputError class="mt-2" :message="form.errors.name"/>
+                            <JetInputError class="mt-2" :message="errors.name"/>
                         </div>
                         <div>
                             <JetLabel for="name" value="Email"/>
@@ -55,7 +72,7 @@ const submit = () => {
                                 autofocus
                                 autocomplete="email"
                             />
-                            <JetInputError class="mt-2" :message="form.errors.email"/>
+                            <JetInputError class="mt-2" :message="errors.email"/>
                         </div>
                         <div>
                             <JetLabel for="name" value="Password"/>
@@ -68,7 +85,7 @@ const submit = () => {
                                 autofocus
                                 autocomplete="password"
                             />
-                            <JetInputError class="mt-2" :message="form.errors.password"/>
+                            <JetInputError class="mt-2" :message="errors.password"/>
                         </div>
                         <div>
                             <JetButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
