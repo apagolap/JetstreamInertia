@@ -23,8 +23,7 @@ class UserController extends Controller
             $users = $users->where('name', 'like', "%$search%")
                 ->orWhere('email', 'like', '%' . $search . '%');
         }
-        $users = $users->paginate(5)->withQueryString();
-
+        $users = $users->paginate(2)->withQueryString();
         return Inertia::render('User/Index', [
             'users' => $users,
             'filters' => request()->only(['search']),

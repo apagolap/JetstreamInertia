@@ -7,6 +7,7 @@ import JetConfirmationModal from '@/Components/ConfirmationModal.vue';
 import JetInput from '@/Components/Input.vue';
 import JetButton from '@/Components/Button.vue';
 import Pagination from '@/Components/Pagination.vue';
+import Paginator from '@/Components/Paginator.vue';
 import {debounce, throttle} from "lodash"; // Para búsques con tiempo
 
 const props = defineProps({
@@ -40,7 +41,7 @@ let search = ref(props.filters.search);
 }, 300));*/
 
 watch(search, debounce(function (value) {
-    console.log('Send after finish write: ' )
+    console.log('Send after finish write: ')
     Inertia.get('/user', {search: value}, {
         preserveState: true,
         replace: true
@@ -127,6 +128,7 @@ watch(search, debounce(function (value) {
                                                 </svg>
                                             </Link>
                                             <Link :href="route('user.edit',{user:user})"
+                                                  :data="{infoIndex:'Hola Soy un dato desde index.'}"
                                                   class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      stroke="currentColor">
@@ -150,7 +152,8 @@ watch(search, debounce(function (value) {
                                 </tbody>
                             </table>
                         </div>
-                        <pagination class="mt-6" :links="users.links"/>
+<!--                        <pagination class="mt-6" :links="users.links"/>-->
+                        <paginator :paginator="users"/>
                     </div>
                 </div>
             </div>
@@ -178,5 +181,4 @@ watch(search, debounce(function (value) {
         </jet-confirmation-modal>
     </AppLayout>
 </template>
-
 
