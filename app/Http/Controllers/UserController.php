@@ -50,7 +50,7 @@ class UserController extends Controller
     public function store(StoreUserPost $request)
     {
         User::create($request->validated());
-        return Redirect::route('user.index');
+        return Redirect::route('user.index')->with('message', 'Usuario creado correctamente.');
     }
 
     /**
@@ -90,8 +90,11 @@ class UserController extends Controller
     {
         $userSelect = $user;
         $userSelect->update($request->validated());
+
+//        request()->session()->flash('message', 'Usuario editado correctamente.');
+
 //        return Inertia::render('User/Show',compact('userSelect'));
-        return Redirect::route('user.index', compact('userSelect'));
+        return Redirect::route('user.index', compact('userSelect'))->with('message', 'Usuario editado correctamente.');
 
 
     }
@@ -106,6 +109,6 @@ class UserController extends Controller
     {
         $userSelect = $user;
         $userSelect->delete();
-        return Redirect::route('user.index');
+        return Redirect::route('user.index')->with('message', 'Usuario eliminado correctamente.');
     }
 }
